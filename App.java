@@ -2,14 +2,17 @@
 import javax.sound.sampled.SourceDataLine;
 
 import Utility.Book;
+import Utility.Patron;
 
 public class App {
  public static void main(String[] args) {
-       Book book = new Book();
-       book.setTitle("python made easy");
-       book.setAuthor("Corey shefer");
-       book.setIsbn("56-67-34");
-       book.setAvailability(true);
-       book.display();
+       Patron ravi = new Patron();
+       ravi.setName("Ravi kiran");
+       ravi.setId(001);
+       ravi.borrowBook("python");
+       ravi.borrowBook("java");
+       ravi.allBooks();
+       ravi.returnBook("python");
+       ravi.allBooks();
  }   
 }
