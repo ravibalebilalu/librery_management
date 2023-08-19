@@ -39,8 +39,17 @@ package Utility;
     }
 
     public boolean getAvailability(){
-        return availability;
+                 return availability;
     }
- 
 
+    public void display(){
+        System.out.println(
+            title + " \n " +
+            author + " \n " +
+            isbn + " \n " +
+            availability
+        );
+    }
+    
+    
 }
