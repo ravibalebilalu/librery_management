@@ -44,10 +44,10 @@ package Utility;
 
     public void display(){
         System.out.println(
-            title + " \n " +
-            author + " \n " +
-            isbn + " \n " +
-            availability
+          "Title :" +  title + " \n " +
+          "Author :" +  author + " \n " +
+          "ISBN :" + isbn + " \n " +
+          "Availability :" + availability
         );
     }
     

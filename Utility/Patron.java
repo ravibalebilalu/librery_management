@@ -3,11 +3,12 @@ attributes like name, ID, and a list of borrowed books. */
 package Utility;
 import Utility.Book;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Patron extends Book{
+public class Patron {
     private String name;
     private int id;
-    private ArrayList<String> bookList = new ArrayList<>();
+    public  LinkedList <Book> borrowedBooks =  new LinkedList<Book>();
 
     //name
     public void setName(String name){
@@ -27,19 +28,22 @@ public class Patron extends Book{
         return id;
     }
 
-    //list of borrowed books
-    public void borrowBook(String title){
-        
-        this.bookList.add(title);
-    }
+     
     
-    public void returnBook(String title){
-        this.bookList.remove(title);
+    
+      
+    public void borrowBook(Book book){
+         borrowedBooks.add(book);
+         
     }
-
-    public void allBooks(){
-        for(String i:bookList){
-            System.out.println(i);
-        }
+    public void showBorrowedBooks(){
+         for(Book i: borrowedBooks){
+            i.display();
+         }
+    }
+     
+    public void returnBook(Book book){
+        borrowedBooks.remove(book);
+        
     }
 }
