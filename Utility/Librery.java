@@ -31,7 +31,7 @@ public class Librery   {
     }
 
     public void AddPatron(Patron patron){
-        patronList.add(patron);
+        this.patronList.add(patron);
     }
      
     public void lendBook(Book book,Patron patron ){
@@ -54,5 +54,22 @@ public class Librery   {
             }
         }
 
+    }
+
+    public void showPatronList(){
+        for(int i = 0;i < patronList.size();i++){
+            Patron current = patronList.get(i);
+            System.out.println("Name : "+ current.getName()
+            +" \n Id : "+ current.getId());
+        }
+    }
+    public boolean checkPatron(String name,int id){
+        boolean ismember = false;
+        for(int i = 0;i < patronList.size();i++){
+            Patron current = patronList.get(i);
+            if(current.getName().equals(name) && (current.getId() == id)){
+                ismember = true;
+            }
+        }return ismember;
     }
 }

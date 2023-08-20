@@ -36,19 +36,46 @@ public class App {
          librery.addBook(bookDetails.get(i));}
 
          Scanner selector = new Scanner(System.in);
-         System.out.println("Are you librerian[L] or reader[R]?");
+         String flag = "run";
+
+
+    while (!(flag.equals("exit"))){
+         System.out.println("Are you librerian[L] or reader[R] or want exit[exit]?");
 
          String selection = selector.nextLine();
+         flag = selection;
          if(selection.equals("R")){
           /*reader code */ 
           System.out.println("Are you a member of this librery? [Y] or [N]");
           String isMember = selector.nextLine();
+
           if(isMember.equals("N")){
             System.out.println("Take membership for this librery .");
             /*new membership code */
-          }else if(isMember.equals("N")){
+            
+            Patron newPatron = new Patron();
+            System.out.println("Enter Your name :");
+            String new_name = selector.nextLine();
+            newPatron.setName(new_name);
+            int new_id = librery.patronList.size() + 1;
+            newPatron.setId(new_id);
+            librery.AddPatron(newPatron);
+            System.out.println(newPatron.getName() + " you are a member of librery!\n you can lend books");
+            System.out.println("Name :" + new_name + "\nId : " + newPatron.getId());
+            
+               
+            
+
+
+          }else if(isMember.equals("Y")){
             /*check membership */
             System.out.println("Give Your name and id");
+            String name_string = selector.nextLine();
+            int id_number = selector.nextInt();
+            if(librery.checkPatron(name_string,id_number)){
+            System.out.println("You can lend books");}
+          }else{
+            System.out.println("Get subscription for librery");
           }
 
 
@@ -56,8 +83,12 @@ public class App {
 
          }else if (selection.equals("L")){
           System.out.println("Librerian");
+         }else if (selection.equals("exit")){
+          flag = "exit";
          }
+           
           
-          
+ }//while loop ends here
+ selector.close();
 }
 }
