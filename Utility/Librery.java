@@ -1,4 +1,5 @@
 package Utility;
+ 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import Utility.Patron;
@@ -13,10 +14,13 @@ public class Librery   {
     //adding books
     public void addBook(Book book){
         book.setAvailability(true);
-        this.bookShelf.add(book);
+        bookShelf.add(book);
 
 
     }
+
+
+
     public void showBookShelf(){
         for(int i=0;i < bookShelf.size();i++){
             Book currentBook = bookShelf.get(i);
@@ -63,13 +67,17 @@ public class Librery   {
             +" \n Id : "+ current.getId());
         }
     }
-    public boolean checkPatron(String name,int id){
-        boolean ismember = false;
+    public int checkPatron(int id){
+          int result = 0;
+           
         for(int i = 0;i < patronList.size();i++){
             Patron current = patronList.get(i);
-            if(current.getName().equals(name) && (current.getId() == id)){
-                ismember = true;
-            }
-        }return ismember;
+            if(current.getId() == id){
+                 result = id;
+                 break;
+            }else{result = 0;}
+        }return  result;
     }
+
+     
 }

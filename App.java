@@ -34,13 +34,15 @@ public class App {
          Librery librery = new Librery();
          for(int i =0; i < bookDetails.size();i++){
          librery.addBook(bookDetails.get(i));}
+         
+         System.out.println("           Welcome to RK LIBRERY \n Explore the world of books, knowledge, and imagination!");
 
          Scanner selector = new Scanner(System.in);
          String flag = "run";
 
 
     while (!(flag.equals("exit"))){
-         System.out.println("Are you librerian[L] or reader[R] or want exit[exit]?");
+         System.out.println("\n \nAre you librerian[L] or reader[R] or want exit[exit]?");
 
          String selection = selector.nextLine();
          flag = selection;
@@ -60,7 +62,7 @@ public class App {
             int new_id = librery.patronList.size() + 1;
             newPatron.setId(new_id);
             librery.AddPatron(newPatron);
-            System.out.println(newPatron.getName() + " you are a member of librery!\n you can lend books");
+            System.out.println("\nCongrats " + newPatron.getName() + " you are a member of librery!\n you can lend books");
             System.out.println("Name :" + new_name + "\nId : " + newPatron.getId());
             
                
@@ -71,18 +73,88 @@ public class App {
             /*check membership */
             System.out.println("Give Your name and id");
             String name_string = selector.nextLine();
-            int id_number = selector.nextInt();
-            if(librery.checkPatron(name_string,id_number)){
-            System.out.println("You can lend books");}
-          }else{
-            System.out.println("Get subscription for librery");
+            int  id_number = selector.nextInt();
+            int verified_id = librery.checkPatron(id_number); 
+            Patron verified = librery.patronList.get(verified_id - 1);
+
+            System.out.println("\nYou are verified!\n");
+
+            System.out.println("Select option \n 1 : for lending book\n 2 : for return book");
+            int memberAction = selector.nextInt();
+            if(memberAction == 1){
+              //book lending
+
+              System.out.println("\nSelect the book:");
+              librery.showBookShelf();
+
+              int selected_book_id = selector.nextInt();
+              Book selected_book = librery.bookShelf.get(selected_book_id - 1);
+              System.out.println("\n \nYou picked the book!");
+              selected_book.display();
+
+              librery.lendBook(selected_book,verified);
+              verified.borrowBook(selected_book);
+              System.out.println("\nThe book " + selected_book.getTitle() + " is lended to " + verified.getName());
+              System.out.println("Happy reading!");
+
+
+
+
+            }else if(memberAction == 2){
+              //book return code
+               System.out.println("\n \nWhich book you want to return?");
+                 int count = 1;
+                 for(Book book:verified.borrowedBooks){
+                  System.out.println(count + " : for " +book.getTitle());
+                  count++;
+
+                 }
+                 int returnBookIndex = selector.nextInt();
+                 Book returningBook = verified.borrowedBooks.get(returnBookIndex - 1);
+                 verified.returnBook(returningBook);
+                 librery.acceptBook(returningBook);
+                 
+                 System.out.println("The book "+ returningBook.getTitle() + " is accepted from " + verified.getName() );
+                 System.out.println("I hope you enjoyed the book!");
+               }
+
+            
+            
+
+            
           }
 
 
 
 
          }else if (selection.equals("L")){
-          System.out.println("Librerian");
+           //librerian code
+           System.out.println("Select options: \n 1 : Add book \n 2 : View Bookshelf");
+           
+           String LibrerianChoice = selector.nextLine();
+           if(LibrerianChoice.equals("1")){
+            //add book code
+            System.out.println("Book title :");
+            String new_title = selector.nextLine();
+            System.out.println("Author :");
+            String new_author = selector.nextLine();
+            System.out.println("Isbn10 :");
+            String new_isbn = selector.nextLine();
+            
+            Book new_book = new Book();
+            new_book.setTitle(new_title);
+            new_book.setAuthor(new_author);
+            new_book.setIsbn(new_isbn);
+
+            librery.addBook(new_book);
+
+           }else if(LibrerianChoice.equals("2")){
+            librery.showBookShelf();
+           }
+           
+
+
+
          }else if (selection.equals("exit")){
           flag = "exit";
          }
@@ -90,5 +162,7 @@ public class App {
           
  }//while loop ends here
  selector.close();
+  
+ 
 }
 }
