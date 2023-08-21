@@ -67,12 +67,12 @@ public class Librery   {
             +" \n Id : "+ current.getId());
         }
     }
-    public int checkPatron(int id){
+    public int checkPatron(String name,int id){
           int result = 0;
            
         for(int i = 0;i < patronList.size();i++){
             Patron current = patronList.get(i);
-            if(current.getId() == id){
+            if((current.getId() == id) && (current.getName().equals(name))){
                  result = id;
                  break;
             }else{result = 0;}

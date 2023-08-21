@@ -62,8 +62,9 @@ public class App {
             int new_id = librery.patronList.size() + 1;
             newPatron.setId(new_id);
             librery.AddPatron(newPatron);
-            System.out.println("\nCongrats " + newPatron.getName() + " you are a member of librery!\n you can lend books");
-            System.out.println("Name :" + new_name + "\nId : " + newPatron.getId());
+            System.out.println("\nCongrats " + newPatron.getName() + "\nyou are a member of librery! you can lend books");
+            System.out.println("\nNote this id card for future use");
+            System.out.println("    RK LIBRERY \nName :" + new_name + "\nId : " + newPatron.getId());
             
                
             
@@ -74,7 +75,10 @@ public class App {
             System.out.println("Give Your name and id");
             String name_string = selector.nextLine();
             int  id_number = selector.nextInt();
-            int verified_id = librery.checkPatron(id_number); 
+            if(id_number <= librery.patronList.size()){
+              //verified patron code
+            int verified_id = librery.checkPatron(name_string,id_number); 
+            if(verified_id > 0){
             Patron verified = librery.patronList.get(verified_id - 1);
 
             System.out.println("\nYou are verified!\n");
@@ -88,6 +92,8 @@ public class App {
               librery.showBookShelf();
 
               int selected_book_id = selector.nextInt();
+              selector.nextLine();
+              if(selected_book_id <= librery.bookShelf.size()){
               Book selected_book = librery.bookShelf.get(selected_book_id - 1);
               System.out.println("\n \nYou picked the book!");
               selected_book.display();
@@ -96,6 +102,8 @@ public class App {
               verified.borrowBook(selected_book);
               System.out.println("\nThe book " + selected_book.getTitle() + " is lended to " + verified.getName());
               System.out.println("Happy reading!");
+            }else{
+              System.out.println("Enter a valied Number ");}
 
 
 
@@ -110,6 +118,7 @@ public class App {
 
                  }
                  int returnBookIndex = selector.nextInt();
+                 selector.nextLine();
                  Book returningBook = verified.borrowedBooks.get(returnBookIndex - 1);
                  verified.returnBook(returningBook);
                  librery.acceptBook(returningBook);
@@ -118,9 +127,11 @@ public class App {
                  System.out.println("I hope you enjoyed the book!");
                }
 
+              }else{
+                System.out.println("Enter valied Information or get menbership");
+              }
             
-            
-
+            }
             
           }
 
@@ -147,6 +158,7 @@ public class App {
             new_book.setIsbn(new_isbn);
 
             librery.addBook(new_book);
+            System.out.println(new_book.getTitle() + "is added succusfully");
 
            }else if(LibrerianChoice.equals("2")){
             librery.showBookShelf();
@@ -155,9 +167,7 @@ public class App {
 
 
 
-         }else if (selection.equals("exit")){
-          flag = "exit";
-         }
+         } 
            
           
  }//while loop ends here
